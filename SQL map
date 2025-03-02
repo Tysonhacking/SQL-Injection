@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# ألوان للتنسيق
+GREEN="\e[32m"
+RED="\e[31m"
+BLUE="\e[34m"
+RESET="\e[0m"
+
+clear
+echo -e "${BLUE}========================================="
+echo -e "${GREEN}        TYSON - SQLMAP INSTALLER         "
+echo -e "${BLUE}=========================================${RESET}"
+
+echo -e "${GREEN}[+] جارِ التحقق من وجود SQLmap...${RESET}"
+
+# التحقق من وجود SQLmap
+if [ -d "sqlmap" ]; then
+    echo -e "${GREEN}[✓] SQLmap موجود بالفعل.${RESET}"
+    cd sqlmap || exit
+    echo -e "${GREEN}[+] تحديث SQLmap...${RESET}"
+    git pull
+else
+    echo -e "${RED}[✗] لم يتم العثور على SQLmap. تحميله الآن...${RESET}"
+    git clone --depth=1 https://github.com/sqlmapproject/sqlmap.git
+    cd sqlmap || exit
+fi
+
+echo -e "${GREEN}[✓] SQLmap جاهز للاستخدام!${RESET}"
+echo -e "${BLUE}=========================================${RESET}"
+echo -e "${GREEN}لتشغيل الأداة: ${RED}python3 sqlmap.py${RESET}"
